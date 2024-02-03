@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "./helper/ColorPalette";
+import { primaryTheme, seconderyTheme, textTheme } from "./helper/ColorPalette";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import ToDoScreen from "./screens/ToDoScreen";
@@ -11,29 +11,17 @@ import * as NavigationBar from "expo-navigation-bar";
 export default function App() {
   const [isDark, setIsDark] = useState(false);
 
-  const primaryTheme = () => {
-    if (isDark) {
-      return colors.primaryDark;
-    } else {
-      return colors.primaryLight;
-    }
-  };
+  function myPrimaryTheme() {
+    return primaryTheme(isDark);
+  }
 
-  const seconderyTheme = () => {
-    if (isDark) {
-      return colors.seconderyDark;
-    } else {
-      return colors.seconderyLight;
-    }
-  };
+  function mySeconderyTheme() {
+    return seconderyTheme(isDark);
+  }
 
-  const textTheme = () => {
-    if (isDark) {
-      return colors.textLight;
-    } else {
-      return colors.textDark;
-    }
-  };
+  function myTextTheme() {
+    return textTheme(isDark);
+  }
 
   const iconThemeButtonName = () => {
     if (isDark) {
@@ -50,7 +38,7 @@ export default function App() {
 
   useEffect(() => {
     async function setNavBarBgTheme() {
-      NavigationBar.setBackgroundColorAsync(seconderyTheme());
+      NavigationBar.setBackgroundColorAsync(mySeconderyTheme());
     }
 
     setNavBarBgTheme();
@@ -66,26 +54,26 @@ export default function App() {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: primaryTheme() }]}
+      style={[styles.container, { backgroundColor: myPrimaryTheme() }]}
     >
       <StatusBar style={isDark ? "light" : "dark"} />
       {/**Appbar Row */}
       <View style={styles.appBarRow}>
-        <Text style={[styles.titleText, { color: textTheme() }]}>To Do</Text>
+        <Text style={[styles.titleText, { color: myTextTheme() }]}>To Do</Text>
         <TouchableOpacity onPress={() => changeTheme()}>
           <Icon
             name={iconThemeButtonName()}
             size={32}
-            color={textTheme()}
+            color={myTextTheme()}
           ></Icon>
         </TouchableOpacity>
       </View>
 
       {/**Todo Screen */}
       <ToDoScreen
-        primaryTheme={primaryTheme}
-        seconderyTheme={seconderyTheme}
-        textTheme={textTheme}
+        primaryTheme={myPrimaryTheme}
+        seconderyTheme={mySeconderyTheme}
+        textTheme={myTextTheme}
       ></ToDoScreen>
     </SafeAreaView>
   );

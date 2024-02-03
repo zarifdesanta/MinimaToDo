@@ -40,7 +40,7 @@ const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
       } else {
         setTodoList([]);
       }
-      console.log(loadedList);
+      // console.log(loadedList);
     }
 
     loadAllData();
