@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ItemCard from "../components/ItemCard";
 import AddModal from "../components/AddModal";
-import { setData, getData } from "../helper/SaveLoad";
+import { setData, getData, clearAllData } from "../helper/SaveLoad";
 
 const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,6 +24,7 @@ const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
   const addTodo = () => {
     const todoObj = {
       data: todo,
+      done: false,
     };
     todoList.push(todoObj);
     setTodoList(todoList);
