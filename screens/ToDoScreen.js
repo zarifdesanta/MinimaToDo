@@ -12,6 +12,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ItemCard from "../components/ItemCard";
 import AddModal from "../components/AddModal";
 import { setData, getData, clearAllData } from "../helper/SaveLoad";
+import uuid from "react-native-uuid";
 
 const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,6 +24,7 @@ const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
 
   const addTodo = () => {
     const todoObj = {
+      id: uuid.v4(),
       data: todo,
       done: false,
     };
@@ -43,7 +45,7 @@ const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
       }
       // console.log(loadedList);
     }
-
+    // clearAllData();
     loadAllData();
   }, []);
 
@@ -52,20 +54,22 @@ const ToDoScreen = ({ primaryTheme, seconderyTheme, textTheme }) => {
       <View style={[styles.container, { backgroundColor: seconderyTheme() }]}>
         {/**Card View */}
         <ScrollView contentContainerStyle={{ gap: 0 }}>
-          {todoList.map((item, id) => {
-            return (
-              <ItemCard
-                key={id}
-                todo={item.data}
-                primaryTheme={primaryTheme}
-                seconderyTheme={seconderyTheme}
-                textTheme={textTheme}
-                id={id}
-                todoList={todoList}
-                setTodoList={setTodoList}
-              ></ItemCard>
-            );
-          })}
+          {todoList
+            .sort((a, b) => a.done - b.done)
+            .map((item, index) => {
+              return (
+                <ItemCard
+                  key={item.id}
+                  todo={item.data}
+                  primaryTheme={primaryTheme}
+                  seconderyTheme={seconderyTheme}
+                  textTheme={textTheme}
+                  id={item.id}
+                  todoList={todoList}
+                  setTodoList={setTodoList}
+                ></ItemCard>
+              );
+            })}
         </ScrollView>
 
         {/**Add Modal */}

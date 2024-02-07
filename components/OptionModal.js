@@ -21,9 +21,11 @@ const OptionModal = ({
 }) => {
   const deleteItem = () => {
     let copyList = [...todoList];
-    copyList.splice(id, 1);
-    setTodoList(copyList);
-    setData("todoList", copyList);
+    // copyList.splice(id, 1);
+    let newList = copyList.filter((item) => item.id !== id);
+
+    setTodoList(newList);
+    setData("todoList", newList);
     hideModal();
   };
 
@@ -31,7 +33,8 @@ const OptionModal = ({
 
   const setNewData = () => {
     let copyList = [...todoList];
-    copyList[id].data = newText;
+    // copyList[id].data = newText;
+    copyList.filter((item) => item.id == id)[0].data = newText;
     setTodoList(copyList);
     setData("todoList", copyList);
     hideModal();
@@ -60,7 +63,7 @@ const OptionModal = ({
                 },
               ]}
               placeholderTextColor={textTheme()}
-              placeholder={todoList[id].data}
+              placeholder={todoList.filter((item) => item.id == id)[0].data}
             ></TextInput>
 
             {/**Button view */}

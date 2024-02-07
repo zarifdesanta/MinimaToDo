@@ -24,10 +24,12 @@ const ItemCard = ({
   const [isDone, setIsDone] = useState(false);
 
   const handleSetIsDone = () => {
-    //use id, todoList, setTodoList to set new data
     setIsDone(!isDone);
+    //use id, todoList, setTodoList to set new data
     let copyTodoList = [...todoList];
-    copyTodoList[id].done = !isDone;
+    copyTodoList.filter((item) => item.id == id)[0].done = !isDone;
+    // console.log(thisItem[0].done);
+    // thisItem[0].done = !isDone;
     setTodoList(copyTodoList);
     //save new list
     setData("todoList", copyTodoList);
@@ -52,8 +54,8 @@ const ItemCard = ({
   useEffect(() => {
     async function getAllData() {
       const tL = await getData("todoList");
-      if (tL[id] != null) {
-        setIsDone(tL[id].done);
+      if (tL.filter((item) => item.id == id)[0] != null) {
+        setIsDone(tL.filter((item) => item.id == id)[0].done);
       }
     }
 
