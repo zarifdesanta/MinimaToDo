@@ -77,7 +77,12 @@ const ItemCard = ({
 
       <View style={[styles.cardContainer, { backgroundColor: primaryTheme() }]}>
         <TouchableOpacity
-          style={{ paddingRight: 10, paddingTop: 5, paddingBottom: 5 }}
+          style={{
+            paddingRight: 10,
+            paddingLeft: 0,
+            paddingTop: 4,
+            paddingBottom: 5,
+          }}
           onPress={() => handleSetIsDone()}
         >
           <Icon
@@ -87,26 +92,31 @@ const ItemCard = ({
           ></Icon>
         </TouchableOpacity>
 
-        <Text
-          style={{
-            fontSize: 20,
-            color: textTheme(),
-            textDecorationLine: handleCheckTextUI(),
-          }}
-        >
-          {todo}
-        </Text>
-        {/**Option Button */}
         <TouchableOpacity
-          style={{
-            paddingLeft: 10,
-            paddingTop: 5,
-            paddingBottom: 5,
-            marginLeft: "auto",
-          }}
           onPress={() => showOptionModal()}
+          style={{ flex: 1, flexDirection: "row" }}
         >
-          <Icon name="dots-vertical" size={22} color={textTheme()}></Icon>
+          <Text
+            style={{
+              fontSize: 20,
+              color: textTheme(),
+              textDecorationLine: handleCheckTextUI(),
+            }}
+          >
+            {todo}
+          </Text>
+          {/**Option Button */}
+          <TouchableOpacity
+            style={{
+              paddingLeft: 10,
+              paddingTop: 5,
+              paddingBottom: 5,
+              marginLeft: "auto",
+            }}
+            onPress={() => showOptionModal()}
+          >
+            <Icon name="dots-vertical" size={22} color={textTheme()}></Icon>
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
     </>

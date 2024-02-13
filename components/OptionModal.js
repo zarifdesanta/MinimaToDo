@@ -62,9 +62,11 @@ const OptionModal = ({
                   backgroundColor: primaryTheme(),
                 },
               ]}
-              placeholderTextColor={textTheme()}
-              placeholder={todoList.filter((item) => item.id == id)[0].data}
-            ></TextInput>
+              // placeholderTextColor={textTheme()}
+              // placeholder={todoList.filter((item) => item.id == id)[0].data}
+            >
+              {todoList.filter((item) => item.id == id)[0].data}
+            </TextInput>
 
             {/**Button view */}
             <View style={{ flexDirection: "row", gap: 15 }}>
